@@ -19,13 +19,14 @@ import { useDispatch } from 'react-redux';
 
 export default function Profile() {
   const fileRef = useRef(null)
-  const {currentUser, loading, error}=useSelector((state)=> state.user)
+  const {currentUser, loading,error}=useSelector((state)=> state.user)
   const[file, setFile] = useState(undefined);
   const[filePerc,setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+  const [updateSuccess,setUpdateSuccess] = useState(false);
   const dispatch = useDispatch();
-  
+  console.log(formData);
   
 //firebase storage
 // allow read;
@@ -84,6 +85,7 @@ useEffect(() => {
         return;
       }
       dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
     }catch (error){
       dispatch(updateUserFailure(error.message));
     }
@@ -120,7 +122,7 @@ useEffect(() => {
 
         <img 
         onClick={()=>fileRef.current.click()} 
-        src={formData?.avatar || currentUser.avatar} 
+        src={formData.avatar || currentUser.avatar} 
         alt="profile"
         className='rounded-full h-24 w-24 object-cover
         cursor-pointer self-center mt-2'/>
@@ -179,7 +181,7 @@ useEffect(() => {
         <span className='text-red-700 cursor-pointer'>Sign out</span>
       </div>
       <p className='text-green-700 mt-5'>
-        {updateUserSuccess ? 'User is updated successfully!':''}
+        {updateSuccess ? 'User is updated successfully!':''}
       </p>
     </div>
   )
