@@ -1,15 +1,21 @@
-import {useSelector} from 'react-redux';
-import {useRef, useState, useEffect} from 'react';
-import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage';
+import { useSelector } from 'react-redux';
+import { useRef, useState, useEffect } from 'react';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
 import { app } from '../firebase';
 import {
-  updateUserStart, 
+  updateUserStart,
+  updateUserSuccess,
   updateUserFailure,
-  updateUserSuccess, 
   deleteUserFailure,
   deleteUserStart,
-  deleteUserSuccess} from '../redux/user/userSlice';
-import {useDispatch} from 'react-redux';
+  deleteUserSuccess,
+} from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 export default function Profile() {
   const fileRef = useRef(null)
@@ -27,11 +33,12 @@ export default function Profile() {
 // request.resource.size < 2 * 1024 * 1024 &&
 // request.resource.contentType.matches('image/.*')
 
-  useEffect(()=>{
-    if(file){
-      handleFileUpload(file);
-    }
-  },[file]);
+useEffect(() => {
+  if (file) {
+    handleFileUpload(file);
+  }
+}, [file]);
+
   const handleFileUpload = (file)=>{
     const storage = getStorage(app); 
     const fileName = new Date().getTime() + file.name;
