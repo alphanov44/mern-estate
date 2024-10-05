@@ -93,7 +93,7 @@ useEffect(() => {
 
   const handleDeleteUser = async()=>{
     try{
-      delete(deleteUserStart());
+      dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`,{
         method: 'DELETE',
       });
@@ -180,7 +180,7 @@ useEffect(() => {
         <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete Account</span>
         <span className='text-red-700 cursor-pointer'>Sign out</span>
       </div>
-      <p className='text-green-700 mt-5'>
+      <p className='text-green- 700 mt-5'>
         {updateSuccess ? 'User is updated successfully!':''}
       </p>
     </div>
