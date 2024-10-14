@@ -50,6 +50,7 @@ export const test = (req, res) => {
     } catch (error) {
       next(error);
     }
+
   };
 
   export const getUserListings = async(req,res,next)=>{
@@ -64,3 +65,4 @@ export const test = (req, res) => {
       return next(errorHandler(401,'You can only view your own listings'));
     }
   }
+
